@@ -1,0 +1,17 @@
+---kế hoạch---
+tên: [...]
+version: [...]
+thể loại: scoring, multi-players, Blocking_structure based, texture games, sub-GUI, non-GUI
+ND:
+ - có local var chứa coins
+ - chơi để lấy coins
+ - càng có nhiều coins, càng epic, chơi càng cooler
+ - đổi được tiền cho người khác
+ - trade được (tính năng quan trọng)
+ - list về các tools thường
+ - list về các tools cao cấp
+ - tools OP
+ - list MOB
+ - list item
+ - sub-GUI, non-GUI
+[...] // EVEN MORE

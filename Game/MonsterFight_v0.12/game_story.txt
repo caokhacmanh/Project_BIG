@@ -1,0 +1,10 @@
+// <--CỐT TRUYỆN GAME-->
+// mình trong vai 1 thằng tên "Kren" xong chơi từng màn một
+// kiểu như đánh quái lấy điểm cho vui 
+// luật chơi: chơi như đánh bài nhưng mà mình đánh trước, quái đánh sau, mình có thể chọn 
+// sau mỗi màn được x2 số heart còn lại
+// phòng thủ hay tấn công. chi tiết như này:
+// -tấn công (ATK): nếu quái chọn ATK thì cả 2 bị mất máu, nếu quái chọn DEF thì quái mất máu
+// -phòng thủ (DEF): nếu quái chọn DEF thì mình hồi máu DEF, nếu quái chọn ATK thì mình mất ATK(quái) - DEF
+// Màn 0: giới thiệu
+// Màn 1: 50 atk, 50 def, 100 heart
