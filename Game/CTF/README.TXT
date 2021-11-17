@@ -1,6 +1,6 @@
 the goal is to find the hidden key: ****
 you can use this command to connect to server: /ping <serverID>
-example, we have:
+example, if we have:
                   server#625
                   server#927
                   server#284
