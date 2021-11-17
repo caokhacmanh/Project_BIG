@@ -28,6 +28,6 @@ if you know what the hidden key is, you can check by using: /confirm <yourKey>
 example, if you think the hidden key is 9245, then type: /confirm 9245
 
 if true, you win the game
-else, you have to continue the game
+else, you have to continue playing
 
 becare: there will be a bot playing with you, if the bot know the hidden key, you will lose the game
