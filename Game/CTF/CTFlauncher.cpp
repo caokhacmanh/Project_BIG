@@ -7,7 +7,7 @@
 using namespace std;
 
 // vars
-int hiddenKey = 0, isBotFound = 10, subCmd = 0, reply = 0;
+int hiddenKey = 0, isBotFound = 10, subCmd = 0, reply = 0, biggest = 9999, smallest = 1000;
 int firstSVID = 0, secondSVID = 0, thirdSVID = 0;
 bool inGame = false;
 string champion = "none", cmd = "", compare = "";
@@ -68,7 +68,7 @@ int main(){
         doCmd();
         
         // check for bot's confirmation
-        if(random(1, 20) == 1){
+        if(random(1, 10) == 1){
             cout << "[IQ_Bot found the hidden key is " << hiddenKey << "]\n\n";
             endGame();
         }else{
@@ -101,7 +101,9 @@ void endGame(){
 void doCmd(){
     if(cmd == "/confirm"){
         if(subCmd == hiddenKey){
-            cout << "[You found out the Key!]";
+            cout << "[YOU FOUND THE HIDDEN KEY!!!]\n";
+            cout << "> YOU BEAT THE IQ_Bot!!! <\n";
+            sleep(5);
             endGame();
         }else{
             cout << "[Wrong, the hidden key is not " << subCmd << "]\n";
@@ -111,12 +113,22 @@ void doCmd(){
         if(subCmd == firstSVID || subCmd == secondSVID || subCmd == thirdSVID){
             cout << "[Pinging to " << subCmd << "...]\n";
             sleep(random(2, 5));
-            reply = random(1000, 9999);
+
+            // generating random reply from smallest to biggest
+            reply = random(smallest, biggest);
             if(reply == hiddenKey) compare = "is the key";
-            if(reply >= hiddenKey) compare = "is too big";
-            if(reply <= hiddenKey) compare = "is too small";
-            if(random(0,2) == 0){
+            if(reply > hiddenKey) compare = "is too big";
+            if(reply < hiddenKey) compare = "is too small";
+
+            // check if server accept the connection
+            if(random(0,2) != 1){
                 cout << "[Pinged successfully, server#" << subCmd << " reply: " << reply << " " << compare << "]\n";
+                if(reply > hiddenKey){
+                    if(reply < biggest) biggest = reply;
+                }
+                if(reply < hiddenKey){
+                    if(reply > smallest) smallest = reply;
+                }
             }else{
                 cout << "[You have lost the connection]\n";
             }
