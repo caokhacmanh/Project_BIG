@@ -46,6 +46,8 @@ int main(){
     cout << "- Use /confirm <yourKey> to check true or false -\n";
     cout << "\n\n\n";
     while(inGame){
+        cout << "[Finding for servers to ping...]\n\n";
+
         // reload the vars
         sleep(random(1, 3));
         firstSVID = random(100, 999);
@@ -53,8 +55,6 @@ int main(){
         secondSVID = random(100, firstSVID);
         sleep(random(1, 3));
         thirdSVID = random(secondSVID, 999);
-
-        cout << "[Finding for servers to ping...]\n\n";
         
         // print out SVIDs
         cout << "[You can ping 1 of these servers and get reply]\n";
