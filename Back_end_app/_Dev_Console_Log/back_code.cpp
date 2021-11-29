@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <fstream>
+using namespace std;
 
 ofstream fout;
 ifstream fin;

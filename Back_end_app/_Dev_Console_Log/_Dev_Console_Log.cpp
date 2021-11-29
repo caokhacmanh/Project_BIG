@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 #include <fstream>
-#include ".\\back_code.h"
+#include ".\\back_code.cpp"
 #include ".\\vars.cpp"
 using namespace std;
 
