@@ -30,7 +30,7 @@ using namespace std;
 //game story:
 // system("");
 
-int my_atk = 50, my_def = 50, my_heart = 300, combats = 0, num_of_combats = 0;// for Kren info
+int my_atk = 50, my_def = 50, my_heart = 300, combats = 0, num_of_combats = 0, num_of_shields = 0;// for Kren info
 int my_coin = 10000;// for Kren's money
 float medicines = 0; int num_of_medicines = 0;
 
@@ -55,8 +55,9 @@ void theme_all(int atk, int def, int heart, int num_theme){
     cout << "\n\n\n" << "THEME:" << num_theme << "\n";
     system("pause");
     while(heart > 0 && my_heart > 0){
+        int max_heart = my_heart;
         if(combats == 1){
-            my_atk += 400 * num_of_combats;
+            my_atk += 100 * num_of_combats;
         }
         if(combats == 2){
             my_def += 150 * num_of_combats;
@@ -101,13 +102,14 @@ void theme_all(int atk, int def, int heart, int num_theme){
                 my_heart = my_heart - atk + my_def;
                 if(atk >= my_def){
                     cout << "Kren lose " << atk - my_def << "\n";
-                }
-                if(atk >= my_def){
+                }else{
+                    my_heart = min(my_heart, max_heart);
                     cout << "Kren resume " << my_def - atk << "\n";
                 }
                 system("pause");
             }else{
                 my_heart += my_def;
+                my_heart = min(my_heart, max_heart);
                 cout << "Kren resume " << my_def << "\n";
             }
         }
@@ -128,6 +130,14 @@ void theme_all(int atk, int def, int heart, int num_theme){
         my_heart *= 2;
         cout << "monster has slained by...you, heheh..." << "\n";
         cout << "Kren can increase atk(1) or def(0)" << "\n";
+        if(combats == 1){
+            my_atk -= 100 * num_of_combats;
+        }
+        if(combats == 2){
+            my_def -= 150 * num_of_combats;
+        }
+        combats = 0;
+        num_of_combats = 0;
         input_int(&b);
         if(b == 0){
             my_def += my_heart;
@@ -146,10 +156,10 @@ void shops_strength(){
     cin >> choice;
     switch (choice){
         case 1:
-            cout << "Each Attack-point cost 1/50 coins. You pay: ";
+            cout << "Each Attack-point cost 10/1 coins. You pay: ";
             cin >> payment;
             if(payment <= my_coin){
-                my_atk += payment * 50;
+                my_atk += payment/10;
                 my_coin -= payment;
                 break;
             }
@@ -157,10 +167,10 @@ void shops_strength(){
             
         
         case 2:
-            cout << "Each Defence-point cost 1/30 coins. You pay: ";
+            cout << "Each Defence-point cost 7/1 coins. You pay: ";
             cin >> payment;
             if(payment <= my_coin){
-                my_def += payment * 30;
+                my_def += payment/30;
                 my_coin -= payment;
                 break;
             }
@@ -168,10 +178,10 @@ void shops_strength(){
             
 
         case 3:
-            cout << "Each Heart cost 1/40 coins. You pay: ";
+            cout << "Each Heart cost 15/1 coins. You pay: ";
             cin >> payment;
             if(payment <= my_coin){
-                my_heart += payment * 40;
+                my_heart += payment/20;
                 my_coin -= payment;
                 break;
             }
@@ -188,38 +198,41 @@ void shops_strength(){
 void shops_combats(){
     system("cls");
     int choice, payment = 0;
-    cout << "What type of combats do you what to choose?\n\n" << "(0)EXIT\n" << "(1)Sword - each add 400 atk - 800 coins\n" << "(2)Armor - each add 150 def & 250 heart - 650 coins\n" << "(3)Shield - each save you once when you die - 500 coins\n";
+    cout << "What type of combats do you what to choose?\n\n" << "(0)EXIT\n" << "(1)Sword - each add 100 atk - 1200 coins\n" << "(2)Armor - each add 150 def & 250 heart - 1500 coins\n" << "(3)Shield - each save you once when you die - 2000 coins\n";
     input_int(&choice);
     switch (choice){
 
         case 1:
-        combats = 1;
-            cout << "Each Sword cost 800 coins. You pay: ";
+            combats = 1;
+            cout << "Each Sword cost 1500 coins. You pay: ";
             input_int(&payment);
             // cout << payment;
             // system("pause");
             if(payment <= my_coin){
-                num_of_combats += payment / 800;
+                num_of_combats += payment / 1200;
+                // my_atk += num_of_combats*400;
                 my_coin -= payment;
             }
             break;
             
         case 2:
-        combats = 2;
+            combats = 2;
             cout << "Each Armor cost 650 coins. You pay: ";
             input_int(&payment);
             if(payment <= my_coin){
                 num_of_combats += payment / 650;
                 my_coin -= payment;
+                // my_def += num_of_combats*150;
+                // my_heart += num_of_combats*250;
             }
             break;
 
         case 3:
-        combats = 3;
-            cout << "Each Shield cost 500 coins. You pay: ";
+            combats = 3;
+            cout << "Each Shield cost 2000 coins. You pay: ";
             input_int(&payment);
             if(payment <= my_coin){
-                num_of_combats += payment / 500;
+                num_of_combats += payment / 2000;
                 my_coin -= payment;
             }
             break;
@@ -252,10 +265,10 @@ void shops_medicines(){
     cout << "(2.3)Poison (III) - monster lose 2.000.000 hearts each time\n";
     cout << "(2.4)Poison (IV) - monster lose 20.000.000 hearts each time\n\n";
 
-    cout << "(3.1)Invisble potion (I) - you are invisible twice, but you can't hit the monster\n";
-    cout << "(3.2)Invisble potion (II) - you are invisible five times, but you can't hit the monster\n";
-    cout << "(3.3)Invisble potion (III) - you are invisible ten times, but you can't hit the monster\n";
-    cout << "(3.4)Invisble potion (IV) - you are invisible twenty times, but you can't hit the monster\n\n";
+    cout << "(3.1)Invisible potion (I) - you are invisible twice, but you can't hit the monster\n";
+    cout << "(3.2)Invisible potion (II) - you are invisible five times, but you can't hit the monster\n";
+    cout << "(3.3)Invisible potion (III) - you are invisible ten times, but you can't hit the monster\n";
+    cout << "(3.4)Invisible potion (IV) - you are invisible twenty times, but you can't hit the monster\n\n";
 
 
     cin >> choice;
@@ -309,14 +322,14 @@ void earn_money(){
     system("cls");
     cout << "my_atk = " << my_atk << "   my_def = " << my_def << "   my_heart = " << my_heart << endl;
     choice = 0;
-    cout << "Mode:\n\n" << "(0)EXIT\n" << "(1)Easy - 1/10 - 5.000-15.000 coins\n" << "(2)Normal - 1/25 - 20.000-100.000 coins\n" << "(3)Hard - 1/50 - 250.000-1.000.000\n";
+    cout << "Mode:\n\n" << "(0)EXIT\n" << "(1)Easy - 1/5 - 5.000-15.000 coins\n" << "(2)Normal - 1/10 - 20.000-100.000 coins\n" << "(3)Hard - 1/20 - 250.000-1.000.000\n";
     cin >> choice;
     system("cls");
     switch (choice){
         case 1:
-            cout << "Choose a number between 1 - 10\n\n";
+            cout << "Choose a number between 1 - 5\n\n";
             srand(time(NULL));
-            random_number = 1 + rand() % (10 + 1 - 1);
+            random_number = 1 + rand() % (5 + 1 - 1);
             // cout << random_number;
             cin >> my_number;
             if(my_number == random_number){
@@ -324,15 +337,15 @@ void earn_money(){
                 my_coin += random_money;
                 cout << "Kren earns " << random_money << " coins\n";
             }else {
-                cout << "Oh ****, Kren has earned 0000000000000 coin";
+                cout << "Oh ****, Kren has earned 0000000000000 coin\n";
             }
             system("pause");
             goto earn_money_goto_here;
         
         case 2:
-            cout << "Choose a number between 1 - 25\n\n";
+            cout << "Choose a number between 1 - 10\n\n";
             srand(time(NULL));
-            random_number = 1 + rand() % (25 + 1 - 1);
+            random_number = 1 + rand() % (10 + 1 - 1);
             // cout << random_number;
             cin >> my_number;
             if(my_number == random_number){
@@ -340,15 +353,15 @@ void earn_money(){
                 my_coin += random_money;
                 cout << "Kren earns " << random_money << " coins\n";
             }else {
-                cout << "Oh ****, Kren has earned 0000000000000 coin";
+                cout << "Oh ****, Kren has earned 0000000000000 coin\n";
             }
             system("pause");
             goto earn_money_goto_here;
 
         case 3:
-            cout << "Choose a number between 1 - 50\n\n";
+            cout << "Choose a number between 1 - 20\n\n";
             srand(time(NULL));
-            random_number = 1 + rand() % (50 + 1 - 1);
+            random_number = 1 + rand() % (20 + 1 - 1);
             // cout << random_number;
             cin >> my_number;
             if(my_number == random_number){
@@ -356,7 +369,7 @@ void earn_money(){
                 my_coin += random_money;
                 cout << "Kren earns " << random_money << " coins\n";
             }else {
-                cout << "Oh ****, Kren has earned 0000000000000 coin";
+                cout << "Oh ****, Kren has earned 0000000000000 coin\n";
             }
             system("pause");
             goto earn_money_goto_here;
